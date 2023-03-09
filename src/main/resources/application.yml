@@ -14,8 +14,8 @@ spring:
 #  oss:
 #    endpoint: oss-cn-nanjing.aliyuncs.com
 #    bucket: yxsite1
-#  access-key: LTAI5tRM3AH92D9ACBNURL6c
-#  secret-key: MOg0kq7Dv6GKDRZGfquGu1o3VX751M
+#  access-key:
+#  secret-key:
 pagehelper:
   helper-dialect: mysql
   reasonable: true
