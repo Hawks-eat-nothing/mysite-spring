@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaxingguo.mysitespring.dao.PhotoDao">
+    <resultMap id="Photo" type="com.yaxingguo.mysitespring.entity.Photo">
+        <id property="id" column="id"/>
+        <result property="url" column="url"/>
+        <result property="resolution" column="resolution"/>
+        <result property="description" column="description"/>
+        <result property="position" column="position"/>
+    </resultMap>
+    <insert id="addPhoto" parameterType="com.yaxingguo.mysitespring.dao.PhotoDao">
+        insert into my_site.photos (id,url,resolution,position,description) values (#{id},#{url},#{resolution},#{position},#{description});
+    </insert>
+    <select id="getImageById" resultMap="Photo">
+        select * from my_site.photos p where p.id = #{id}
+    </select>
+    <select id="getAll" resultType="com.yaxingguo.mysitespring.dto.PhotoDto">
+        select p.id,p.url from my_site.photos p
+    </select>
+    <select id="getFirstPagePhoto" resultType="com.yaxingguo.mysitespring.dto.PhotoDto">
+        select p.id,p.url form my_site.photos p order by p.id asc limit 20;
+    </select>
+</mapper>

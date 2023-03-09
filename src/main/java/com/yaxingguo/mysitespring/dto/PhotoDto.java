@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class firstPagePhoto {
+public class PhotoDto {
     private Long id;
-    private String resolution;
-    private String position;
-    private String description;
+//    private String resolution;
+//    private String position;
+//    private String description;
     private String url;
 }

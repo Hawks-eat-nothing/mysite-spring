@@ -1,0 +1,27 @@
+server:
+  port: 8085
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/my_site?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8
+    username: root
+    password: 1021
+  jackson:
+    date-format: yyyy-MM-dd
+  main:
+    allow-circular-references: true
+#alicloud:
+#  oss:
+#    endpoint: oss-cn-nanjing.aliyuncs.com
+#    bucket: yxsite1
+#  access-key: LTAI5tRM3AH92D9ACBNURL6c
+#  secret-key: MOg0kq7Dv6GKDRZGfquGu1o3VX751M
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.yaxingguo.mysitespring.entity
+  configuration:
+    map-underscore-to-camel-case: true
