@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaxingguo.mysitespring.dao.BlogDao">
+
+    <resultMap id="showBlog" type="com.yaxingguo.mysitespring.dto.ShowBlog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="views" column="views"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="description" column="description"/>
+    </resultMap>
+    <select id="getAllBlog" resultType="com.yaxingguo.mysitespring.dto.ShowBlog">
+        select b.id,b.title,b.cover_img,b.views,b.update_time,b.description
+        from my_site.blogs b
+    </select>
+    <resultMap id="detailedBlog" type="com.yaxingguo.mysitespring.dto.DetailedBlog">
+        <id property="id" column="id"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="flag" column="flag"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="views" column="views"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="commentAbled" column="comment_abled"/>
+        <collection property="tags" ofType="com.yaxingguo.mysitespring.entity.Tag">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
+    <select id="getBlogById" resultType="com.yaxingguo.mysitespring.dto.DetailedBlog">
+        select b.id,b.cover_img,b.title,b.content,b.flag,b.views,b.update_time,b.comment_abled,b.tag_ids
+        from my_site.blogs b
+        where b.id=#{id}
+    </select>
+
+
+</mapper>
