@@ -1,5 +1,6 @@
 package com.yaxingguo.mysitespring.entity;
 
+import com.yaxingguo.mysitespring.dto.CommentDto;
 import com.yaxingguo.mysitespring.dto.DetailedBlog;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,11 +21,13 @@ public class Comment {
     private Date createTime;
 
     private Long blogId;
-    private Long parentCommentId;
-    private String parentNickname;
+    private Long rootId;
+    private String toCommentNickname;
+    private Long toCommentId;
+    private Integer delFlag;
 
-    private List<Comment> replyComments = new ArrayList<>();
-    private Comment parentComment;
+    private List<CommentDto> children = new ArrayList<>();
+
 
 
 }

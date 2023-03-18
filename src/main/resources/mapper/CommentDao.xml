@@ -4,6 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yaxingguo.mysitespring.dao.CommentDao">
 
+    <resultMap id="Comment" type="com.yaxingguo.mysitespring.entity.Comment">
+        <id property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="email" column="email"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="blogId" column="blog_id"/>
+        <result property="rootId" column="root_id"/>
+        <result property="toCommentNickname" column="to_comment_nickname"/>
+        <result property="toCommentId" column="to_comment_id"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+    <insert id="addComment" parameterType="com.yaxingguo.mysitespring.entity.Comment">
+        insert into my_site.comment (nickname,email,content,create_time,blog_id,root_id,to_comment_nickname,to_comment_id)
+        values (#{nickname},#{email},#{content},#{createTime},#{blogId},#{rootId},#{toCommentNickname},#{toCommentId})
+    </insert>
 
-    <select id="listCommentByBlogId"></select>
+    <select id="listCommentByBlogId" resultType="com.yaxingguo.mysitespring.entity.Comment">
+        select c.id,c.nickname,c.content,c.create_time,c.root_id
+        from my_site.comment c
+        where c.blog_id = #{blogId} and c.root_id=-1
+    </select>
+    <select id="listChildComments" resultType="com.yaxingguo.mysitespring.dto.CommentDto">
+        select c.id,c.nickname,c.content,c.root_id,c.create_time,c.to_comment_nickname
+        from my_site.comment c
+        where c.root_id = #{rootId}
+    </select>
 </mapper>

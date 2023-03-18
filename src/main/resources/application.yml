@@ -10,6 +10,9 @@ spring:
     date-format: yyyy-MM-dd
   main:
     allow-circular-references: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
 #alicloud:
 #  oss:
 #    endpoint: oss-cn-nanjing.aliyuncs.com
