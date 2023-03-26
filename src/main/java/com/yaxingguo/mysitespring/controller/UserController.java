@@ -4,10 +4,8 @@ import com.yaxingguo.mysitespring.entity.ResponseResult;
 import com.yaxingguo.mysitespring.entity.User;
 import com.yaxingguo.mysitespring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -15,11 +13,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/user/login")
+    @PostMapping("/login")
     public ResponseResult login(@RequestBody User user){
+        System.out.println(user);
         return userService.login(user);
     }
-    @RequestMapping("/user/logout")
+    @GetMapping("/logout")
     public ResponseResult logout(){
         return userService.logout();
     }

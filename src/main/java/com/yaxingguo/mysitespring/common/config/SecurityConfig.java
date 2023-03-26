@@ -45,12 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
-                .antMatchers("/user/login").anonymous()
-                .antMatchers("/blogs").permitAll()
-                .antMatchers("/photos").permitAll()
+                .antMatchers("/login").anonymous()
+                .antMatchers("/logout").authenticated()
+                .antMatchers("/blogs/").permitAll()
+                .antMatchers("/photos/").permitAll()
+//                .antMatchers("/comment/*").permitAll()
 //                .antMatchers("/testCors").hasAuthority("system:dept:list222")
                 // 除上面外的所有请求全部需要鉴权认证
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .logout().logoutUrl("/logout");//logout可参见spring Security中文文档 SS 6.5;
         //添加过滤器
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //配置异常处理器

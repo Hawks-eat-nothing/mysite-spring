@@ -4,8 +4,11 @@ import com.yaxingguo.mysitespring.entity.LoginUser;
 import com.yaxingguo.mysitespring.entity.ResponseResult;
 import com.yaxingguo.mysitespring.entity.User;
 import com.yaxingguo.mysitespring.service.UserService;
+import com.yaxingguo.mysitespring.utils.BeanCopyUtils;
 import com.yaxingguo.mysitespring.utils.JwtUtils;
 import com.yaxingguo.mysitespring.utils.RedisCache;
+import com.yaxingguo.mysitespring.vo.LoginVo;
+import com.yaxingguo.mysitespring.vo.UserInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,11 +32,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDetailsService userDetailsService;
 
+
     @Override
     public ResponseResult login(User user) {
-
-
-
 
         //AuthenticationManager 进行用户认证
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
@@ -49,9 +50,10 @@ public class UserServiceImpl implements UserService {
         //把完整的用户信息存入redis,userid作为key
         redisCache.setCacheObject("login:"+userid,loginUser);
         //把token响应给前端
-        Map<String,String> map = new HashMap<>();
-        map.put("token",jwt);
-        return new ResponseResult(200,"登录成功",map);
+        //把User转换成UserInfoVo
+        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
+        LoginVo loginVo = new LoginVo(jwt,userInfoVo);
+        return ResponseResult.okResult(loginVo);
     }
 
     @Override
