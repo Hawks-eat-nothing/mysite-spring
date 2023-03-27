@@ -108,6 +108,7 @@ public class UserServiceImpl implements UserService {
         //存入数据库
         userDao.saveUser(user);
         return ResponseResult.okResult();
+        //TODO 后续研究一下用户id用什么方式生成以及注册时的验证机制
     }
 
     private boolean nicknameExist(String nickname) {
