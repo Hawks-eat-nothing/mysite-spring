@@ -22,6 +22,11 @@ public interface UserDao {
     User getUserByUserName(String userName);
 
 
+    User getUserByNickname(String nickname);
 
+    void saveUser(User user);
+
+    int checkUsernameExist(String userName);
+    int checkNicknameExist(String userName);
 }
 

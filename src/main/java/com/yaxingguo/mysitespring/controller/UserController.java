@@ -18,8 +18,13 @@ public class UserController {
         System.out.println(user);
         return userService.login(user);
     }
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public ResponseResult logout(){
         return userService.logout();
+    }
+
+    @PostMapping("/register")
+    public ResponseResult register(@RequestBody User user){
+        return userService.register(user);
     }
 }

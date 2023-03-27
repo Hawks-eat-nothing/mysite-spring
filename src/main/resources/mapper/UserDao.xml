@@ -5,7 +5,7 @@
     <resultMap type="com.yaxingguo.mysitespring.entity.User" id="UserMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="userName" column="user_name" jdbcType="VARCHAR"/>
-        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
         <result property="type" column="type" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="VARCHAR"/>
@@ -17,6 +17,16 @@
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
     </resultMap>
+    <insert id="saveUser">
+        insert into my_site.user (user_name,password,nick_name,email)
+        values (#{userName},#{password},#{nickName},#{email})
+    </insert>
+
+    <select id="checkUsernameExist" resultType="java.lang.Integer">
+        select count(user_name)
+        from my_site.user u
+        where u.user_name=#{userName}
+    </select>
 
     <select id="getUserByUserName" resultType="com.yaxingguo.mysitespring.entity.User">
         select *
@@ -24,6 +34,11 @@
         where u.user_name=#{userName}
     </select>
 
+    <select id="checkNicknameExist" resultType="java.lang.Integer">
+        select count(nick_name)
+        from my_site.user u
+        where u.nick_name=#{nickName}
+    </select>
 
 </mapper>
 

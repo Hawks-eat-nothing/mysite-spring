@@ -10,4 +10,5 @@ public interface UserService {
 
     ResponseResult logout();
 
+    ResponseResult register(User user);
 }
