@@ -22,7 +22,7 @@ public class ViewCountRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //查询博客信息
+        //查询博客信息，将数据库中的访问量 同步到redis,实现初始化
         List<Blog> blogs= blogDao.getBlogIdAndViews();
         Map<String, Integer> viewsMap = new HashMap<>();
         for (Blog blog : blogs) {
