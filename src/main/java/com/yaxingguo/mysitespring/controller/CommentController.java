@@ -2,6 +2,7 @@ package com.yaxingguo.mysitespring.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.yaxingguo.mysitespring.annotation.SystemLog;
 import com.yaxingguo.mysitespring.dto.CommentDto;
 import com.yaxingguo.mysitespring.entity.Comment;
 import com.yaxingguo.mysitespring.service.CommentService;
@@ -23,12 +24,14 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping("/commentList/{blogId}")
+    @SystemLog(businessName = "展示评论")
     public ResponseEntity<String> commentList(@PathVariable Long blogId){
         List<Comment> comments = commentService.commentList(blogId);
         Gson gson = new Gson();
         return ResponseEntity.ok().body(gson.toJson(comments));
     }
     @PostMapping("/add")
+    @SystemLog(businessName = "提交评论")
     public ResponseEntity<String> addComment(@RequestBody String json){
         Gson gson = new GsonBuilder().create();
         System.out.println(json);

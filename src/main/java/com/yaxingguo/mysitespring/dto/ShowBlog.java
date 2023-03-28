@@ -16,7 +16,7 @@ public class ShowBlog {
     private String title;
     private String coverImg;
 
-    private Integer views;
+    private Long views;
     private Date updateTime;
     private String description;
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.google.gson.Gson;
+import com.yaxingguo.mysitespring.annotation.SystemLog;
 import com.yaxingguo.mysitespring.dao.PhotoDao;
 import com.yaxingguo.mysitespring.dto.PhotoDto;
 import com.yaxingguo.mysitespring.entity.Photo;
@@ -31,6 +32,7 @@ public class PhotosController {
 
     @GetMapping("/detail/{id}")
     @ResponseBody
+    @SystemLog(businessName = "图片详情")
     public ResponseEntity<String> getPhotoById(@PathVariable Long id) throws JsonProcessingException {
         Photo photo = photoService.getPhotoById(id);
         Gson gson = new Gson();
@@ -40,6 +42,7 @@ public class PhotosController {
 
     @GetMapping("/")
     @ResponseBody
+    @SystemLog(businessName = "相册首页")
     public ResponseEntity<String> getAllPhotos(@RequestParam(defaultValue="1",value="pageNum") Integer pageNum) throws JsonProcessingException {
         PageHelper.startPage(pageNum,20);
         List<PhotoDto> res = photoService.getAllPhotos();
@@ -48,6 +51,7 @@ public class PhotosController {
 
     }
     @PostMapping("/upload")
+    @SystemLog(businessName = "相册上传")
     public ResponseEntity<String> uploadPhotos(@RequestBody String json){
         Gson gson = new Gson();
         Photo photo = gson.fromJson(json, Photo.class);

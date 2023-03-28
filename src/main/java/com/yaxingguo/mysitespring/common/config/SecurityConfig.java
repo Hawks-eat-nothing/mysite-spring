@@ -47,8 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 对于登录接口 允许匿名访问
                 .antMatchers("/login").anonymous()
                 .antMatchers("/logout").authenticated()
-                .antMatchers("/blogs/").permitAll()
+                .antMatchers("/blogs/**").permitAll()
                 .antMatchers("/photos/").permitAll()
+                .antMatchers("/comment/commentList/**").permitAll()
+                .antMatchers("/comment/add/").authenticated()
                 .antMatchers("/register").anonymous()
 //                .antMatchers("/comment/*").permitAll()
 //                .antMatchers("/testCors").hasAuthority("system:dept:list222")

@@ -17,7 +17,7 @@ public class Blog {
     private String content;
     private String coverImg;
     private String flag;
-    private Integer views;
+    private Long views;
     private boolean commentAbled;
     private boolean published;
     private Date createTime;
@@ -26,4 +26,8 @@ public class Blog {
     private List<Tag> tags = new ArrayList<>();
 
 
+    public Blog(Long id, long viewCount) {
+        this.id=id;
+        this.views = viewCount;
+    }
 }

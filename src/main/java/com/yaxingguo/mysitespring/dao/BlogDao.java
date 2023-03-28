@@ -12,5 +12,9 @@ import java.util.List;
 @Mapper
 public interface BlogDao {
     List<ShowBlog> getAllBlog();
-    DetailedBlog getBlogById(Long id);
+    Blog getBlogById(Long id);
+
+    List<Blog> getBlogIdAndViews();
+
+    void updateById(Long id,Long views);
 }

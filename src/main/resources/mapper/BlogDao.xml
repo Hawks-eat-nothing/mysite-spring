@@ -12,6 +12,12 @@
         <result property="updateTime" column="update_time"/>
         <result property="description" column="description"/>
     </resultMap>
+    <update id="updateById">
+        update my_site.blogs
+        set views=#{views},
+        update_time=NOW()
+        where id=#{id}
+    </update>
     <select id="getAllBlog" resultType="com.yaxingguo.mysitespring.dto.ShowBlog">
         select b.id,b.title,b.cover_img,b.views,b.update_time,b.description
         from my_site.blogs b
@@ -30,10 +36,14 @@
             <result property="name" column="name"/>
         </collection>
     </resultMap>
-    <select id="getBlogById" resultType="com.yaxingguo.mysitespring.dto.DetailedBlog">
+    <select id="getBlogById" resultType="com.yaxingguo.mysitespring.entity.Blog">
         select b.id,b.cover_img,b.title,b.content,b.flag,b.views,b.update_time,b.comment_abled,b.tag_ids
         from my_site.blogs b
         where b.id=#{id}
+    </select>
+    <select id="getBlogIdAndViews" resultType="com.yaxingguo.mysitespring.entity.Blog">
+        select b.id,b.views
+        from my_site.blogs b
     </select>
 
 

@@ -1,8 +1,11 @@
 package com.yaxingguo.mysitespring.controller;
 
 import com.google.gson.Gson;
+import com.yaxingguo.mysitespring.annotation.SystemLog;
 import com.yaxingguo.mysitespring.dto.DetailedBlog;
 import com.yaxingguo.mysitespring.dto.ShowBlog;
+import com.yaxingguo.mysitespring.entity.Blog;
+import com.yaxingguo.mysitespring.entity.ResponseResult;
 import com.yaxingguo.mysitespring.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,7 @@ public class BlogsController {
 
     @GetMapping("/")
     @ResponseBody
+    @SystemLog(businessName = "博客列表")
     public ResponseEntity<String> getAllBlogs(){
         List<ShowBlog> allBlog = blogService.getAllBlog();
         Gson gson = new Gson();
@@ -28,9 +32,15 @@ public class BlogsController {
 
     @GetMapping("/detail/{id}")
     @ResponseBody
+    @SystemLog(businessName = "博客详情")
     public ResponseEntity<String> getBlogById(@PathVariable Long id){
-        DetailedBlog detailedBlog = blogService.getBlogById(id);
+        Blog blog = blogService.getBlogById(id);
         Gson gson = new Gson();
-        return ResponseEntity.ok().body(gson.toJson(detailedBlog));
+        return ResponseEntity.ok().body(gson.toJson(blog));
+    }
+
+    @PutMapping("/updateViewCount/{id}")
+    public ResponseResult updateViewCount(@PathVariable Long id){
+        return blogService.updateViewCount(id);
     }
 }
