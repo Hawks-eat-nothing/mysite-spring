@@ -4,22 +4,43 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yaxingguo.mysitespring.dao.BlogDao">
 
-    <resultMap id="showBlog" type="com.yaxingguo.mysitespring.dto.ShowBlog">
+<!--    <resultMap id="showBlog" type="com.yaxingguo.mysitespring.dto.ShowBlog">-->
+<!--        <id property="id" column="id"/>-->
+<!--        <result property="title" column="title"/>-->
+<!--        <result property="coverImg" column="cover_img"/>-->
+<!--        <result property="views" column="views"/>-->
+<!--        <result property="updateTime" column="update_time"/>-->
+<!--        <result property="description" column="description"/>-->
+<!--    </resultMap>-->
+    <resultMap id="Blog" type="com.yaxingguo.mysitespring.entity.Blog">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
+        <result property="content" column="content"/>
         <result property="coverImg" column="cover_img"/>
+        <result property="flag" column="flag"/>
         <result property="views" column="views"/>
+        <result property="commentAbled" column="comment_abled"/>
+        <result property="published" column="published"/>
+        <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
         <result property="description" column="description"/>
+        <collection property="tags" ofType="com.yaxingguo.mysitespring.entity.Tag">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </collection>
     </resultMap>
+    <insert id="saveBlog">
+        insert into my_site.blogs (title,cover_img,content,create_time,update_time,flag,comment_abled,published)
+        values (#{title},#{coverImg},#{content},#{createTime},#{updateTime},#{flag},#{commentAbled},#{published})
+    </insert>
     <update id="updateById">
         update my_site.blogs
         set views=#{views},
         update_time=NOW()
         where id=#{id}
     </update>
-    <select id="getAllBlog" resultType="com.yaxingguo.mysitespring.dto.ShowBlog">
-        select b.id,b.title,b.cover_img,b.views,b.update_time,b.description
+    <select id="getAllBlog" resultType="com.yaxingguo.mysitespring.entity.Blog">
+        select b.id,b.title,b.cover_img,b.views,b.update_time,b.description,b.published
         from my_site.blogs b
     </select>
     <resultMap id="detailedBlog" type="com.yaxingguo.mysitespring.dto.DetailedBlog">
@@ -37,13 +58,18 @@
         </collection>
     </resultMap>
     <select id="getBlogById" resultType="com.yaxingguo.mysitespring.entity.Blog">
-        select b.id,b.cover_img,b.title,b.content,b.flag,b.views,b.update_time,b.comment_abled,b.tag_ids
+        select b.id,b.cover_img,b.title,b.content,b.flag,b.views,b.update_time,b.create_time,b.comment_abled,b.tag_ids
         from my_site.blogs b
         where b.id=#{id}
     </select>
     <select id="getBlogIdAndViews" resultType="com.yaxingguo.mysitespring.entity.Blog">
         select b.id,b.views
         from my_site.blogs b
+    </select>
+    <select id="getTagsById" resultType="com.yaxingguo.mysitespring.entity.Tag">
+        select t.name,t.id
+        from my_site.tag t join my_site.blog_tags bt
+        where t.id=bt.tag_id and bt.blog_id=#{id};
     </select>
 
 

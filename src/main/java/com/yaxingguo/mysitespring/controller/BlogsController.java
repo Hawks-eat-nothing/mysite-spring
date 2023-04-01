@@ -6,6 +6,7 @@ import com.yaxingguo.mysitespring.dto.DetailedBlog;
 import com.yaxingguo.mysitespring.dto.ShowBlog;
 import com.yaxingguo.mysitespring.entity.Blog;
 import com.yaxingguo.mysitespring.entity.ResponseResult;
+import com.yaxingguo.mysitespring.entity.Tag;
 import com.yaxingguo.mysitespring.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class BlogsController {
     @ResponseBody
     @SystemLog(businessName = "博客列表")
     public ResponseEntity<String> getAllBlogs(){
-        List<ShowBlog> allBlog = blogService.getAllBlog();
+        List<Blog> allBlog = blogService.getAllBlog();
         Gson gson = new Gson();
         return ResponseEntity.ok().body(gson.toJson(allBlog));
     }
@@ -38,9 +39,21 @@ public class BlogsController {
         Gson gson = new Gson();
         return ResponseEntity.ok().body(gson.toJson(blog));
     }
-
+//    @ResponseBody
     @PutMapping("/updateViewCount/{id}")
     public ResponseResult updateViewCount(@PathVariable Long id){
         return blogService.updateViewCount(id);
+    }
+
+    @PostMapping("/add")
+    @SystemLog(businessName = "添加博客")
+    public ResponseResult addBlog(@RequestBody Blog blog){
+        return blogService.addBlog(blog);
+    }
+    @GetMapping("/tags/{id}")
+    @ResponseBody
+    @SystemLog(businessName = "获取标签")
+    public ResponseResult<List<Tag>> getTagsById(@PathVariable Long id){
+        return blogService.getTagsById(id);
     }
 }

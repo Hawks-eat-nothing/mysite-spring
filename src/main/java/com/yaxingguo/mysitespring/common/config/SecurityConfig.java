@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/logout").authenticated()
                 .antMatchers("/blogs/**").permitAll()
                 .antMatchers("/photos/").permitAll()
-                .antMatchers("/comment/commentList/**").permitAll()
+                .antMatchers("/comment/commentList").permitAll()
                 .antMatchers("/comment/add/").authenticated()
                 .antMatchers("/register").anonymous()
 //                .antMatchers("/comment/*").permitAll()

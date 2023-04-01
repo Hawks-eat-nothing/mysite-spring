@@ -5,11 +5,16 @@ import com.yaxingguo.mysitespring.dto.DetailedBlog;
 import com.yaxingguo.mysitespring.dto.ShowBlog;
 import com.yaxingguo.mysitespring.entity.Blog;
 import com.yaxingguo.mysitespring.entity.ResponseResult;
+import com.yaxingguo.mysitespring.entity.Tag;
+import com.yaxingguo.mysitespring.enums.AppHttpCodeEnum;
+import com.yaxingguo.mysitespring.exception.SystemException;
 import com.yaxingguo.mysitespring.service.BlogService;
 import com.yaxingguo.mysitespring.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,9 +27,9 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public List<ShowBlog> getAllBlog() {
-        List<ShowBlog> blogs = blogDao.getAllBlog();
-        for (ShowBlog blog : blogs) {
+    public List<Blog> getAllBlog() {
+        List<Blog> blogs = blogDao.getAllBlog();
+        for (Blog blog : blogs) {
             Integer redisViews = redisCache.getCacheMapValue("blog:viewCount", blog.getId().toString());
             blog.setViews(redisViews.longValue());
         }
@@ -52,5 +57,24 @@ public class BlogServiceImpl implements BlogService {
             blogDao.updateById(blog.getId(),blog.getViews());
         }
 
+    }
+
+    @Override
+    public ResponseResult addBlog(Blog blog) {
+        //对标题进行非空判断
+        if (!StringUtils.hasText(blog.getTitle())){
+            throw new SystemException(AppHttpCodeEnum.TITLE_NOT_NULL);
+        }
+        blog.setCreateTime(new Date());
+        blog.setUpdateTime(new Date());
+        blogDao.saveBlog(blog);
+        return ResponseResult.okResult();
+
+    }
+
+    @Override
+    public ResponseResult<List<Tag>> getTagsById(Long id) {
+        List<Tag> tagsById = blogDao.getTagsById(id);
+        return ResponseResult.okResult(tagsById);
     }
 }
