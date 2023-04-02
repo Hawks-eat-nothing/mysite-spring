@@ -30,8 +30,8 @@
         </collection>
     </resultMap>
     <insert id="saveBlog">
-        insert into my_site.blogs (title,cover_img,content,create_time,update_time,flag,comment_abled,published)
-        values (#{title},#{coverImg},#{content},#{createTime},#{updateTime},#{flag},#{commentAbled},#{published})
+        insert into my_site.blogs (title,cover_img,content,create_time,update_time,flag,comment_abled,published,tag_ids)
+        values (#{title},#{coverImg},#{content},#{createTime},#{updateTime},#{flag},#{commentAbled},#{published},#{tagIds})
     </insert>
     <update id="updateById">
         update my_site.blogs
@@ -70,6 +70,11 @@
         select t.name,t.id
         from my_site.tag t join my_site.blog_tags bt
         where t.id=bt.tag_id and bt.blog_id=#{id};
+    </select>
+    <select id="getIdByTitle" resultType="java.lang.Long">
+        select b.id
+        from my_site.blogs b
+        where b.title = #{title};
     </select>
 
 

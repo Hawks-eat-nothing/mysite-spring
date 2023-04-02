@@ -23,4 +23,6 @@ public interface BlogDao {
     void saveBlog(Blog blog);
 
     List<Tag> getTagsById(Long id);
+
+    Long getIdByTitle(String title);
 }

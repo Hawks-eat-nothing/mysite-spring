@@ -13,6 +13,7 @@ import java.util.List;
 public class Tag {
     private Long id;
     private String name;
+    private boolean deleted;
 
     private List<Blog> blogs = new ArrayList<>();
 }

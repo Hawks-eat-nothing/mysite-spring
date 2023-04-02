@@ -23,6 +23,7 @@ public class Blog {
     private Date createTime;
     private Date updateTime;
     private String description;
+    private String tagIds;
     private List<Tag> tags = new ArrayList<>();
 
 

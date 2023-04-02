@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/blogs/**").permitAll()
                 .antMatchers("/photos/").permitAll()
                 .antMatchers("/comment/commentList").permitAll()
+                .antMatchers("/tags").permitAll()
                 .antMatchers("/comment/add/").authenticated()
                 .antMatchers("/register").anonymous()
 //                .antMatchers("/comment/*").permitAll()

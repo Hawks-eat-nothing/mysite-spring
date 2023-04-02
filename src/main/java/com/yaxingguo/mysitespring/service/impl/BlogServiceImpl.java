@@ -9,6 +9,7 @@ import com.yaxingguo.mysitespring.entity.Tag;
 import com.yaxingguo.mysitespring.enums.AppHttpCodeEnum;
 import com.yaxingguo.mysitespring.exception.SystemException;
 import com.yaxingguo.mysitespring.service.BlogService;
+import com.yaxingguo.mysitespring.service.TagService;
 import com.yaxingguo.mysitespring.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,9 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private RedisCache redisCache;
+
+    @Autowired
+    private TagService tagService;
 
 
     @Override
@@ -68,6 +72,7 @@ public class BlogServiceImpl implements BlogService {
         blog.setCreateTime(new Date());
         blog.setUpdateTime(new Date());
         blogDao.saveBlog(blog);
+        tagService.bind(blog.getTitle(),blog.getTagIds());
         return ResponseResult.okResult();
 
     }
