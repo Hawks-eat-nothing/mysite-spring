@@ -1,17 +1,21 @@
 ## 工程简介
 - 🔗：
-- 🤖这是我的个人主页的后端实现技术栈包括SpringBoot,Mybatis,正在逐步加入SpringSecurity.  [前端](https://github.com/Hawks-eat-nothing/my-site-vue)技术栈为Vue和tailwind css
+- 🤖这是我的个人主页的后端实现技术栈包括SpringBoot,Mybatis,正在逐步加入SpringSecurity、redis...  [前端](https://github.com/Hawks-eat-nothing/my-site-vue)技术栈为Vue和tailwind css
 
 ### 功能完成情况
 - [x] 照片展示
 - [x] 照片上传
 - [x] 博客展示
 - [x] 博客评论
-- [ ] 用户登录
-- [ ] 用户鉴权
+- [x] 用户登录
+- [x] 用户鉴权
 - [ ] 图片上传到图床
-- [ ] 博客管理页
+- [x] 博客管理页
 - [ ] 照片管理页
+- [ ] 博客更新和删除
+- [ ] 新增标签
+- [ ] 绑定标签
+- [ ] 新增角色
 
 ### 探索之路
 *这部分记录在开发过程中的探索过程*
@@ -27,4 +31,4 @@
 - **rootId字段的赋值思路：**
     - 当是父评论时，直接默认赋值为-1
     - 当是子评论时，有两种情况：1是新增的评论C回复的是父评论A，即第一级展示的评论，此时将rootId设置为父评论A的id;2是评论C回复的是子评论B，即第二级展示的评论，此时将C的rootId设置为子评论B的rootId。
-## 延伸阅读
+
