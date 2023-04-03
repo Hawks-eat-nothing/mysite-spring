@@ -18,4 +18,6 @@ public interface BlogService {
     ResponseResult addBlog(Blog blog);
 
     ResponseResult getTagsById(Long id);
+
+    ResponseResult deleteById(Long id);
 }

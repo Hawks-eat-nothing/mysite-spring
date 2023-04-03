@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").anonymous()
 //                .antMatchers("/comment/*").permitAll()
 //                .antMatchers("/testCors").hasAuthority("system:dept:list222")
-                // 除上面外的所有请求全部需要鉴权认证
+                // 除上面外的所有请求全部需要认证
                 .anyRequest().authenticated();
 
         http.logout().disable();//logout可参见spring Security中文文档 SS 6.5;

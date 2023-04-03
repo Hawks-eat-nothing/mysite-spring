@@ -24,6 +24,7 @@ public class Blog {
     private Date updateTime;
     private String description;
     private String tagIds;
+    private boolean deleted;
     private List<Tag> tags = new ArrayList<>();
 
 

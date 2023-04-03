@@ -30,14 +30,19 @@
         </collection>
     </resultMap>
     <insert id="saveBlog">
-        insert into my_site.blogs (title,cover_img,content,create_time,update_time,flag,comment_abled,published,tag_ids)
-        values (#{title},#{coverImg},#{content},#{createTime},#{updateTime},#{flag},#{commentAbled},#{published},#{tagIds})
+        insert into my_site.blogs (title,cover_img,content,create_time,update_time,flag,comment_abled,published,tag_ids,description)
+        values (#{title},#{coverImg},#{content},#{createTime},#{updateTime},#{flag},#{commentAbled},#{published},#{tagIds},#{description})
     </insert>
     <update id="updateById">
         update my_site.blogs
         set views=#{views},
         update_time=NOW()
         where id=#{id}
+    </update>
+    <update id="deleteById">
+        update my_site.blogs b
+        set b.deleted=1
+        where b.id=#{blogId}
     </update>
     <select id="getAllBlog" resultType="com.yaxingguo.mysitespring.entity.Blog">
         select b.id,b.title,b.cover_img,b.views,b.update_time,b.description,b.published

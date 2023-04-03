@@ -11,6 +11,7 @@ import com.yaxingguo.mysitespring.exception.SystemException;
 import com.yaxingguo.mysitespring.service.BlogService;
 import com.yaxingguo.mysitespring.service.TagService;
 import com.yaxingguo.mysitespring.utils.RedisCache;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -36,6 +37,7 @@ public class BlogServiceImpl implements BlogService {
         for (Blog blog : blogs) {
             Integer redisViews = redisCache.getCacheMapValue("blog:viewCount", blog.getId().toString());
             blog.setViews(redisViews.longValue());
+
         }
         return blogs;
     }
@@ -81,5 +83,19 @@ public class BlogServiceImpl implements BlogService {
     public ResponseResult<List<Tag>> getTagsById(Long id) {
         List<Tag> tagsById = blogDao.getTagsById(id);
         return ResponseResult.okResult(tagsById);
+    }
+
+    @Override
+    public ResponseResult deleteById(Long id) {
+        //判断id是否存在
+        boolean exist = false;
+        if (blogDao.getBlogById(id)!=null){
+            exist=true;
+        }
+        if (!exist){
+            throw  new SystemException(AppHttpCodeEnum.BLOG_NOT_EXIST);
+        }
+        blogDao.deleteById(id);
+        return ResponseResult.okResult();
     }
 }

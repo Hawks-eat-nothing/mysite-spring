@@ -25,4 +25,6 @@ public interface BlogDao {
     List<Tag> getTagsById(Long id);
 
     Long getIdByTitle(String title);
+
+    void deleteById(Long blogId);
 }

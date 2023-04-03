@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/blogs")
 public class BlogsController {
     @Autowired
@@ -55,5 +55,11 @@ public class BlogsController {
     @SystemLog(businessName = "获取标签")
     public ResponseResult<List<Tag>> getTagsById(@PathVariable Long id){
         return blogService.getTagsById(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @SystemLog(businessName = "删除博客")
+    public ResponseResult deleteById(@PathVariable Long id){
+        return blogService.deleteById(id);
     }
 }
